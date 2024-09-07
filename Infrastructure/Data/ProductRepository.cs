@@ -21,9 +21,10 @@ public class ProductRepository : IProductRepository
 
     public async Task<Product> GetProductByIdAsync(int id)
     {
-        Product? product =null;
-        if(_context.Products is not null){
-            product = await _context.Products.Include(p =>p.ProductType).Include(p => p.ProductBrand).FirstOrDefaultAsync(p => p.id == id); 
+        Product? product = null;
+        if (_context.Products is not null)
+        {
+            product = await _context.Products.Include(p => p.ProductType).Include(p => p.ProductBrand).FirstOrDefaultAsync(p => p.id == id);
         }
         return product;
     }
@@ -31,8 +32,11 @@ public class ProductRepository : IProductRepository
     public async Task<IReadOnlyList<Product>> GetProductsAsync()
     {
         List<Product>? products = null;
-        if (_context.Products is not null){
-            products = await _context.Products.Include(p =>p.ProductType).Include(p => p.ProductBrand).ToListAsync();
+
+
+        if (_context.Products is not null)
+        {
+            products = await _context.Products.Include(p => p.ProductType).Include(p => p.ProductBrand).ToListAsync();
         }
         return products;
     }
