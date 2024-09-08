@@ -1,3 +1,4 @@
+using API.Helpers;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 builder.Services.AddControllers();
 builder.Services.AddDbContext<StoreContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,6 +43,7 @@ using (var scope = app.Services.CreateScope()){
 app.UseHttpsRedirection();
 
 app.UseRouting();
+app.UseStaticFiles();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
